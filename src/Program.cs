@@ -1,38 +1,45 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 class Program
 {
-    static List<string> bandas = new List<string>();
-    static Dictionary<string,int> notaBandas = new Dictionary<string,int>();
+    static Dictionary<string, List<int>> notasPorBanda = new Dictionary<string, List<int>>();
 
     public static void RegistrarBanda(string nomeBanda)
     {
-        bandas.Add(nomeBanda);
-        Console.Write($"{nomeBanda} registrada!");
+        if (notasPorBanda.ContainsKey(nomeBanda))
+        {
+            Console.WriteLine($"A banda {nomeBanda} já está registrada.");
+        }
+        else
+        {
+            notasPorBanda[nomeBanda] = new List<int>();
+            Console.WriteLine($"{nomeBanda} registrada com sucesso!");
+        }
     }
 
     public static void ListarBandas()
     {
         Console.Write("\n---------- BANDAS CADASTRADAS ---------\n");
-        for (int i = 0; i < bandas.Count; i++) {
-            Console.Write($"\n{bandas[i]}");
+        foreach (string banda in notasPorBanda.Keys)
+        {
+            Console.WriteLine(banda);
         }
     }
 
     public static void AvaliarBanda(string nomeBanda, int notaBanda)
     {
-        notaBandas[nomeBanda] = notaBanda;
-
-        for (int i = 0; i < bandas.Count;i++)
+        if (notasPorBanda.ContainsKey(nomeBanda))
         {
-            if (notaBandas[nomeBanda].Equals(bandas[i]))
-            {
-                Console.Write($"{bandas[i]} recebeu uma nova nota, {notaBanda}");
-            }
+            notasPorBanda[nomeBanda].Add(notaBanda);
+            Console.WriteLine($"Banda {nomeBanda} avaliada com sucesso.");
         }
+        else
+        {
+            Console.WriteLine("A banda {nomeBanda} ainda não foi registrada. Favor registra-la antes de avaliar.");
+        }
+
     }
 
     public static void MediaNotas()
@@ -107,7 +114,7 @@ class Program
     {
         StreamReader logo;
 
-        string caminho = ".\logo.txt";
+        string caminho = "logo.txt";
 
         logo = File.OpenText(caminho);
 
