@@ -21,7 +21,7 @@ class Program
 
     public static void ListarBandas()
     {
-        Console.Write("\n---------- BANDAS CADASTRADAS ---------\n");
+        Console.Write("\n---------- BANDAS CADASTRADAS ---------\n\n");
         foreach (string banda in notasPorBanda.Keys)
         {
             Console.WriteLine(banda);
@@ -33,17 +33,32 @@ class Program
         if (notasPorBanda.ContainsKey(nomeBanda))
         {
             notasPorBanda[nomeBanda].Add(notaBanda);
-            Console.WriteLine($"Banda {nomeBanda} avaliada com sucesso.");
+            Console.WriteLine($"\nBanda {nomeBanda} avaliada com sucesso.");
         }
         else
         {
-            Console.WriteLine("A banda {nomeBanda} ainda não foi registrada. Favor registra-la antes de avaliar.");
+            Console.WriteLine($"A banda {nomeBanda} ainda não foi registrada. Favor registra-la antes de avaliar.");
         }
 
     }
 
     public static void MediaNotas()
     {
+        Console.WriteLine("---------- AVALIAÇÃO BANDAS ----------");
+        foreach (var banda in notasPorBanda)
+        {
+            int soma = 0;
+            string nomeBanda = banda.Key;
+            List<int> notas = banda.Value;
+
+            foreach (int nota in notas)
+            {
+                soma += nota;
+
+            }
+            float media = (float)soma / notas.Count;
+            Console.WriteLine($"{nomeBanda} - {media}");
+        }
 
     }
 
@@ -90,9 +105,7 @@ class Program
                         break;
                     case 4:
 
-                        Console.Write($"Opção {op} escolhida.");
-                        sair++;
-
+                        MediaNotas();
                         break;
                     case 9:
 
