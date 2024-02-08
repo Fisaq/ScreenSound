@@ -123,8 +123,9 @@ class Program
         }
     }
 
-    public static void Main()
+    public static void Logo()
     {
+
         StreamReader logo;
 
         string caminho = "logo.txt";
@@ -139,6 +140,11 @@ class Program
         }
 
         logo.Close();
+    }
+
+    public static void Main()
+    {
+        Logo();
 
         string mensagem = "Boas vindas ao Screen Sound!";
         Console.WriteLine(mensagem);
